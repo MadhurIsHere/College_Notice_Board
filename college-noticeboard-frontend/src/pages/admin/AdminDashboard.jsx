@@ -77,14 +77,14 @@ const AdminDashboard = () => {
     const files = e.dataTransfer.files;
     if (files && files[0]) {
       const file = files[0];
-      if (file.type === 'application/pdf') {
+      if (file.type === "application/pdf") {
         setUploadedFile({
           name: file.name,
-          size: (file.size / 1024).toFixed(2) + ' KB',
-          type: file.type
+          size: (file.size / 1024).toFixed(2) + " KB",
+          type: file.type,
         });
       } else {
-        alert('Please upload a PDF file only');
+        alert("Please upload a PDF file only");
       }
     }
   };
@@ -140,7 +140,9 @@ const AdminDashboard = () => {
                   <FaUser className="text-sm" />
                   Profile
                   <FaChevronDown
-                    className={`text-xs transition-transform duration-200 ${isProfileOpen ? "rotate-180" : ""}`}
+                    className={`text-xs transition-transform duration-200 ${
+                      isProfileOpen ? "rotate-180" : ""
+                    }`}
                   />
                 </button>
               </div>
@@ -250,7 +252,9 @@ const AdminDashboard = () => {
                             <FaUser className="text-sm" />
                             Upload Type
                             <FaChevronDown
-                              className={`text-xs transition-transform duration-200 ${isUploadTypeOpen ? "rotate-180" : ""}`}
+                              className={`text-xs transition-transform duration-200 ${
+                                isUploadTypeOpen ? "rotate-180" : ""
+                              }`}
                             />
                           </button>
 
@@ -258,20 +262,24 @@ const AdminDashboard = () => {
                           {isUploadTypeOpen && (
                             <div className="absolute right-0 mt-2 w-48 bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-purple-200 overflow-hidden z-[100]">
                               <div className="py-2">
-                                {["1 Year", "2 Year", "3 Year", "4 Year", "Global"].map(
-                                  (option) => (
-                                    <button
-                                      key={option}
-                                      onClick={() => {
-                                        setIsUploadTypeOpen(false);
-                                        console.log(`Selected: ${option}`);
-                                      }}
-                                      className="w-full px-4 py-3 flex items-center hover:bg-purple-50 transition-all duration-200 text-gray-700 hover:text-purple-700 font-medium"
-                                    >
-                                      {option}
-                                    </button>
-                                  )
-                                )}
+                                {[
+                                  "1 Year",
+                                  "2 Year",
+                                  "3 Year",
+                                  "4 Year",
+                                  "Global",
+                                ].map((option) => (
+                                  <button
+                                    key={option}
+                                    onClick={() => {
+                                      setIsUploadTypeOpen(false);
+                                      console.log(`Selected: ${option}`);
+                                    }}
+                                    className="w-full px-4 py-3 flex items-center hover:bg-purple-50 transition-all duration-200 text-gray-700 hover:text-purple-700 font-medium"
+                                  >
+                                    {option}
+                                  </button>
+                                ))}
                               </div>
                             </div>
                           )}
