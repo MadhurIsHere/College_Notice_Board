@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FaUser, FaLock, FaChevronDown } from "react-icons/fa";
-import bg from "../../components/images/landing_bg.png"; // Using the same background
+import bg from "../../components/images/landing_bg.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -16,12 +16,18 @@ const Login = () => {
     e.preventDefault();
     
     if (!email || !password) {
-      alert("Please fill in both credentials.");
+      alert("Credentials required");
       return;
     }
 
     if (role === "STUDENT") {
-      navigate("/dashboard/student");
+      // Prompting for year to determine the dynamic route
+      const studentYear = prompt("Enter your year (1, 2, 3, or 4):", "1");
+      if (["1", "2", "3", "4"].includes(studentYear)) {
+        navigate(`/dashboard/student/${studentYear}`);
+      } else {
+        alert("Invalid year selected");
+      }
     } else {
       console.log(`Logging in as ${adminType}`);
       navigate("/dashboard/admin");
@@ -31,15 +37,12 @@ const Login = () => {
   return (
     <div
       className="min-h-screen bg-cover bg-center bg-fixed flex items-center justify-center p-6 relative"
-      style={{ backgroundImage: `url(${bg})` }} // Matches Landing/Admin UI
+      style={{ backgroundImage: `url(${bg})` }}
     >
-      {/* Glassmorphic Background Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-100/40 via-blue-50/30 to-indigo-100/40 backdrop-blur-sm" />
 
-      {/* Main Glassmorphic Card */}
       <div className="relative z-10 w-full max-w-md bg-white/60 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/30 p-10">
         
-        {/* Header Section */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-500 rounded-2xl shadow-lg mb-4 text-white text-2xl">
             🔔
@@ -48,7 +51,6 @@ const Login = () => {
           <p className="text-gray-600 mt-2">Access the Campus Portal</p>
         </div>
 
-        {/* Role Selection Tabs */}
         <div className="flex p-1 bg-white/40 backdrop-blur-md rounded-xl border border-white/30 mb-6">
           <button
             onClick={() => { setRole("STUDENT"); setShowAdminTypes(false); }}
@@ -68,7 +70,6 @@ const Login = () => {
           </button>
         </div>
 
-        {/* Admin Specific Role Selection (Only if ADMIN selected) */}
         {role === "ADMIN" && (
           <div className="relative mb-6 animate-in fade-in slide-in-from-top-2 duration-300">
             <button
@@ -96,12 +97,11 @@ const Login = () => {
           </div>
         )}
 
-        {/* Login Form */}
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="relative">
             <FaUser className="absolute left-4 top-4 text-purple-400" />
             <input
-              type="text"
+              type="email"
               placeholder="Username / Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -128,7 +128,6 @@ const Login = () => {
           </button>
         </form>
 
-        {/* Footer Link */}
         <p className="text-center text-gray-500 text-sm mt-8">
           Need help? <span className="text-purple-600 font-medium cursor-pointer hover:underline" onClick={() => navigate("/")}>Go back to Home</span>
         </p>
